@@ -20,7 +20,7 @@ coverage:
 flags:
   projectMain:
     paths:
-      - projectA/src
+      - src
 
 parsers:
   gcov:
