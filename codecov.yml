@@ -8,19 +8,18 @@ coverage:
 
   status:
     project:
-      default:
+      default: off
+      backend:
         target: 40%
-        threshold: null
-      projectMain:
-        flags: projectMain
-        target: 40%
-    patch: yes
-    changes: yes
+        flags: backend
 
 flags:
-  projectMain:
+  backend:
     paths:
-      - src
+      - src/
+  tests:
+    paths:
+      - src/test/
 
 parsers:
   gcov:
