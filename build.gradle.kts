@@ -90,7 +90,7 @@ publishing {
             groupId = artifactGroup
             artifactId = artifactName
             // version is gotten from an external plugin
-            version = 1
+            version = "1"
             // This is the main artifact
             from(components["java"])
             // We are adding documentation artifact
