@@ -10,6 +10,8 @@ plugins {
 
     idea
     jacoco
+
+    `maven-publish`
 }
 
 group = "com.example.github"
@@ -37,7 +39,6 @@ tasks.withType<Test> {
 tasks.withType<JacocoReport> {
     reports {
         xml.isEnabled = true
-        html.isEnabled = true
     }
 }
 
@@ -45,5 +46,23 @@ tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
         jvmTarget = "1.8"
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/OWNER/REPOSITORY")
+            credentials {
+                username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.key") as String? ?: System.getenv("PASSWORD")
+            }
+        }
+    }
+    publications {
+        register("gpr") {
+            from(components["java"])
+        }
     }
 }
