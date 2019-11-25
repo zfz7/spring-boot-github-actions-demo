@@ -4,6 +4,7 @@ plugins {
     id("org.springframework.boot") version "2.2.1.RELEASE"
     id("io.spring.dependency-management") version "1.0.8.RELEASE"
     id("org.sonarqube") version "2.7.1"
+    id("org.jetbrains.dokka") version "0.9.17"
 
     kotlin("jvm") version "1.3.50"
     kotlin("plugin.spring") version "1.3.50"
@@ -49,11 +50,35 @@ tasks.withType<KotlinCompile> {
     }
 }
 
+tasks {
+    dokka {
+        outputFormat = "html"
+        outputDirectory = "$buildDir/javadoc"
+        moduleName = rootProject.name
+    }
+}
+
+val dokkaJar by tasks.creating(Jar::class) {
+    group = JavaBasePlugin.DOCUMENTATION_GROUP
+    description = "Assembles Kotlin docs with Dokka"
+    archiveClassifier.set("javadoc")
+    from(tasks.dokka)
+    dependsOn(tasks.dokka)
+}
+
+val sourcesJar by tasks.creating(Jar::class) {
+    archiveClassifier.set("sources")
+    from(sourceSets.getByName("main").allSource)
+}
+
+val artifactName = "libname"
+val artifactGroup = "org.example"
+
 publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/OWNER/REPOSITORY")
+            url = uri("https://maven.pkg.github.com/tsarenkotxt/spring-boot-github-actions-demo")
             credentials {
                 username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
                 password = project.findProperty("gpr.key") as String? ?: System.getenv("PASSWORD")
@@ -61,8 +86,17 @@ publishing {
         }
     }
     publications {
-        register("gpr") {
+        create<MavenPublication>("lib") {
+            groupId = artifactGroup
+            artifactId = artifactName
+            // version is gotten from an external plugin
+            version = 1
+            // This is the main artifact
             from(components["java"])
+            // We are adding documentation artifact
+            artifact(dokkaJar)
+            // And sources
+            artifact(sourcesJar)
         }
     }
 }
