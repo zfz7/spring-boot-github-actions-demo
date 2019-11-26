@@ -1,9 +1,9 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.jetbrains.kotlin.platform.TargetPlatformVersion.NoVersion.description
 
 plugins {
     id("org.springframework.boot") version "2.2.1.RELEASE"
     id("io.spring.dependency-management") version "1.0.8.RELEASE"
+
     id("org.sonarqube") version "2.7.1"
     id("org.jetbrains.dokka") version "0.9.17"
 
@@ -12,11 +12,11 @@ plugins {
 
     idea
     jacoco
-
+    `java-library`
     `maven-publish`
 }
 
-group = "demo"
+group = "spring-boot-kotlin-awesome-lib"
 version = "0.0.1"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
@@ -79,43 +79,26 @@ publishing {
             url = uri("https://maven.pkg.github.com/tsarenkotxt/spring-boot-github-actions-demo")
             credentials {
                 username = "tsarenkotxt"
-                password = System.getenv("GITHUB_TOKEN")
+                password = System.getenv("GITHUB_PACKAGES_WRITE_TOKEN")
             }
         }
     }
     publications {
         register("jar", MavenPublication::class) {
             from(components["java"])
+            artifact(dokkaJar)
+            artifact(sourcesJar)
             pom.withXml {
                 asNode().apply {
-                    appendNode("name", "spring-boot-github-actions-demo")
-                    appendNode("description", "some description")
+                    appendNode("name", "spring-boot-kotlin-awesome-lib")
+                    appendNode("description", "Demo with Github Packages, Spring Boot, Kotlin")
                     appendNode("url", "https://github.com/tsarenkotxt/spring-boot-github-actions-demo")
                     appendNode("licenses").appendNode("license").apply {
-                        appendNode("name", "GNU Lesser General Public License v3.0")
-                        appendNode("url", "https://www.gnu.org/licenses/lgpl-3.0.txt")
+                        appendNode("name", "The Apache Software License, Version 2.0")
+                        appendNode("url", "http://www.apache.org/licenses/LICENSE-2.0.txt")
                     }
                 }
             }
-            //pom{
-               // name =  "spring-boot-github-actions-demo"
-
-                    /*   description ="some description"
-                       url = "https://github.com/tsarenkotxt/spring-boot-github-actions-demo"
-                       licenses {
-                           license {
-                               name = "GNU Lesser General Public License v3.0"
-                               url = "https://www.gnu.org/licenses/lgpl-3.0.txt"
-                           }
-                       }*/
-                //}
-
         }
     }
 }
-
-/*from(components["java"])
-// We are adding documentation artifact
-artifact(dokkaJar)
-// And sources
-artifact(sourcesJar)*/
