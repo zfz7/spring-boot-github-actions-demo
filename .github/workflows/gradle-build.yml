@@ -19,10 +19,10 @@ jobs:
 
         uses: actions/setup-java@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN_SONAR }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           java-version: 1.8
 
       - name: Build with Gradle
-        run: echo ${{ secrets.GITHUB_TOKEN }}
+        run: ./gradlew clean build jacocoTestReport sonarqube
