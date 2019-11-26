@@ -90,7 +90,7 @@ publishing {
             url = uri("https://maven.pkg.github.com/tsarenkotxt/spring-boot-github-actions-demo")
             credentials {
                 username = "tsarenkotxt"
-                password = System.getenv("GITHUB_PACKAGES_WRITE_TOKEN")
+                password = System.getenv("GITHUB_PUBLISH_TOKEN")
             }
         }
     }
