@@ -1,7 +1,7 @@
-name: Gradle build
+name: Gradle build and publish GitHub package
 
 on:
-  pull_request:
+  push:
     branches:
       - master
 
@@ -21,4 +21,4 @@ jobs:
         with:
           java-version: 1.8
       - name: Build with Gradle
-        run: ./gradlew clean build jacocoTestReport sonarqube
+        run: ./gradlew clean build jacocoTestReport sonarqube publish

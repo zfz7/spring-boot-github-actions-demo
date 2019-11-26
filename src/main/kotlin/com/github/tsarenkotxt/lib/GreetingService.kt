@@ -2,6 +2,9 @@ package com.github.tsarenkotxt.lib
 
 import org.springframework.stereotype.Service
 
+/**
+ * The Greeting service.
+ */
 @Service
 class GreetingService {
 
