@@ -71,9 +71,6 @@ val sourcesJar by tasks.creating(Jar::class) {
     from(sourceSets.getByName("main").allSource)
 }
 
-val artifactName = "libname"
-val artifactGroup = "org.example"
-
 publishing {
     repositories {
         maven {
@@ -86,11 +83,7 @@ publishing {
         }
     }
     publications {
-        create<MavenPublication>("lib") {
-            groupId = artifactGroup
-            artifactId = artifactName
-            // version is gotten from an external plugin
-            version = "1"
+        create<MavenPublication>("com.github.spring-boot-github-actions-demo") {
             // This is the main artifact
             from(components["java"])
             // We are adding documentation artifact
@@ -100,3 +93,9 @@ publishing {
         }
     }
 }
+
+/*from(components["java"])
+// We are adding documentation artifact
+artifact(dokkaJar)
+// And sources
+artifact(sourcesJar)*/
