@@ -1,4 +1,4 @@
-name: Gradle Build and Deploy
+name: Gradle Build and Register Package
 
 on:
   push:
