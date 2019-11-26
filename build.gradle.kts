@@ -16,7 +16,7 @@ plugins {
     `maven-publish`
 }
 
-group = "spring-boot-github-actions-demo"
+group = "demo"
 version = "0.0.1"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
