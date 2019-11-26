@@ -15,7 +15,7 @@ plugins {
     `maven-publish`
 }
 
-group = "com.example.github"
+group = "com.github.tsarenkotxt"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
