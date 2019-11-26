@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.platform.TargetPlatformVersion.NoVersion.description
 
 plugins {
     id("org.springframework.boot") version "2.2.1.RELEASE"
@@ -15,7 +16,7 @@ plugins {
     `maven-publish`
 }
 
-group = "com.github.tsarenkotxt"
+group = "io.something"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
@@ -74,7 +75,7 @@ val sourcesJar by tasks.creating(Jar::class) {
 publishing {
     repositories {
         maven {
-            name = "GitHubPackages"
+            name = "Github"
             url = uri("https://maven.pkg.github.com/tsarenkotxt/spring-boot-github-actions-demo")
             credentials {
                 username = "tsarenkotxt"
@@ -85,6 +86,30 @@ publishing {
     publications {
         register("jar", MavenPublication::class) {
             from(components["java"])
+            pom.withXml {
+                asNode().apply {
+                    appendNode("name", "spring-boot-github-actions-demo")
+                    appendNode("description", "some description")
+                    appendNode("url", "https://github.com/tsarenkotxt/spring-boot-github-actions-demo")
+                    appendNode("licenses").appendNode("license").apply {
+                        appendNode("name", "GNU Lesser General Public License v3.0")
+                        appendNode("url", "https://www.gnu.org/licenses/lgpl-3.0.txt")
+                    }
+                }
+            }
+            //pom{
+               // name =  "spring-boot-github-actions-demo"
+
+                    /*   description ="some description"
+                       url = "https://github.com/tsarenkotxt/spring-boot-github-actions-demo"
+                       licenses {
+                           license {
+                               name = "GNU Lesser General Public License v3.0"
+                               url = "https://www.gnu.org/licenses/lgpl-3.0.txt"
+                           }
+                       }*/
+                //}
+
         }
     }
 }
