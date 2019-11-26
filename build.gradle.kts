@@ -83,13 +83,8 @@ publishing {
         }
     }
     publications {
-        create<MavenPublication>("com.github.spring-boot-github-actions-demo") {
-            // This is the main artifact
+        register("jar", MavenPublication::class) {
             from(components["java"])
-            // We are adding documentation artifact
-            artifact(dokkaJar)
-            // And sources
-            artifact(sourcesJar)
         }
     }
 }
