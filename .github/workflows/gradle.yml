@@ -27,5 +27,5 @@ jobs:
         run: ./gradlew clean build jacocoTestReport sonarqube publish
 
       - name: Publish with Gradle
-        if: github.ref == master
+        if: github.ref == 'master'
         run: ./gradlew publish
