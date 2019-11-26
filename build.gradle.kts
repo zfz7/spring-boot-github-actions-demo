@@ -1,6 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
+//import kotlin.math.sign
+
 plugins {
     id("org.springframework.boot") version "2.2.1.RELEASE"
     id("io.spring.dependency-management") version "1.0.8.RELEASE"
@@ -14,6 +16,7 @@ plugins {
     idea
     jacoco
     `maven-publish`
+    //signing
 }
 
 group = "spring-boot-kotlin-awesome-lib"
@@ -92,21 +95,51 @@ publishing {
         }
     }
     publications {
-        register("jar", MavenPublication::class) {
-            from(components["java"])
-            artifact(dokkaJar)
-            artifact(sourcesJar)
-            pom.withXml {
-                asNode().apply {
-                    appendNode("name", "spring-boot-kotlin-awesome-lib")
-                    appendNode("description", "Demo with Github Actions/Packages, Spring Boot, Kotlin")
-                    appendNode("url", "https://github.com/tsarenkotxt/spring-boot-github-actions-demo")
-                    appendNode("licenses").appendNode("license").apply {
-                        appendNode("name", "The Apache Software License, Version 2.0")
-                        appendNode("url", "http://www.apache.org/licenses/LICENSE-2.0.txt")
+        publications {
+            create<MavenPublication>("mavenJava") {
+                //groupId = "com.github.tsarenkotxt"
+                groupId = "demo"
+                //artifactId = "spring-boot-kotlin-awesome-lib"
+                artifactId = "demo"
+                version = "0.0.2"
+
+                from(components["java"])
+                artifact(dokkaJar)
+                artifact(sourcesJar)
+
+                pom {
+                    name.set("My awesome lib demo")
+                    description.set("Demo with Github Actions/Packages, Spring Boot, Kotlin")
+                    url.set("https://github.com/tsarenkotxt/spring-boot-github-actions-demo")
+                    licenses {
+                        license {
+                            name.set("The Apache License, Version 2.0")
+                            url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                        }
+                    }
+                    developers {
+                        developer {
+                            id.set("tsarenkotxt")
+                            name.set("Tsarenko Andrey")
+                            email.set("tsarenkotxt@gmail.com")
+                        }
+                    }
+                    scm {
+                        url.set("https://github.com/tsarenkotxt/spring-boot-github-actions-demo")
+                        connection.set("scm:git:git://github.com/tsarenkotxt/spring-boot-github-actions-demo.git")
+                        developerConnection.set("scm:git:git@github.com:tsarenkotxt/spring-boot-github-actions-demo.git")
+                    }
+                    issueManagement {
+                        url.set("https://github.com/tsarenkotxt/spring-boot-github-actions-demo/issues")
+                        system.set("GitHub Issues")
                     }
                 }
             }
         }
     }
 }
+
+/*signing {
+    useGpgCmd()
+    sign(publishing.publications["mavenJava"])
+}*/
