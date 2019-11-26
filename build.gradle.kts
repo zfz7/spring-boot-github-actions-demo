@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
     id("org.springframework.boot") version "2.2.1.RELEASE"
@@ -25,13 +26,19 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
+}
+
+tasks.getByName<BootJar>("bootJar") {
+    enabled = false
+}
+
+tasks.getByName<Jar>("jar") {
+    enabled = true
 }
 
 tasks.withType<Test> {
@@ -91,7 +98,7 @@ publishing {
             pom.withXml {
                 asNode().apply {
                     appendNode("name", "spring-boot-kotlin-awesome-lib")
-                    appendNode("description", "Demo with Github Packages, Spring Boot, Kotlin")
+                    appendNode("description", "Demo with Github Actions/Packages, Spring Boot, Kotlin")
                     appendNode("url", "https://github.com/tsarenkotxt/spring-boot-github-actions-demo")
                     appendNode("licenses").appendNode("license").apply {
                         appendNode("name", "The Apache Software License, Version 2.0")
