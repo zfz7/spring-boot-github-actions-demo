@@ -34,6 +34,13 @@ dependencies {
     }
 }
 
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        freeCompilerArgs = listOf("-Xjsr305=strict")
+        jvmTarget = "1.8"
+    }
+}
+
 tasks.getByName<BootJar>("bootJar") {
     enabled = false
 }
@@ -49,13 +56,6 @@ tasks.withType<Test> {
 tasks.withType<JacocoReport> {
     reports {
         xml.isEnabled = true
-    }
-}
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "1.8"
     }
 }
 
