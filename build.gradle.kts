@@ -13,7 +13,6 @@ plugins {
 
     idea
     jacoco
-    `java-library`
     `maven-publish`
 }
 
