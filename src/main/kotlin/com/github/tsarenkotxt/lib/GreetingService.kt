@@ -9,4 +9,5 @@ import org.springframework.stereotype.Service
 class GreetingService {
 
     fun greeting(name: String?): String = "Hello, ${name ?: "World"}!"
+
 }
