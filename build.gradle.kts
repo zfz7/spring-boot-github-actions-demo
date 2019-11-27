@@ -9,6 +9,7 @@ plugins {
 
     id("org.sonarqube") version "2.7.1"
     id("org.jetbrains.dokka") version "0.9.17"
+    id("com.github.breadmoirai.github-release") version "2.2.9"
 
     kotlin("jvm") version "1.3.50"
     kotlin("plugin.spring") version "1.3.50"
@@ -20,7 +21,7 @@ plugins {
 }
 
 group = "spring-boot-kotlin-awesome-lib"
-version = "0.0.5"
+version = "0.0.6"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
@@ -70,6 +71,8 @@ tasks {
     }
 }
 
+val githubToken: String = System.getenv("GITHUB_TOKEN")
+
 val dokkaJar by tasks.creating(Jar::class) {
     group = JavaBasePlugin.DOCUMENTATION_GROUP
     description = "Assembles Kotlin docs with Dokka"
@@ -83,6 +86,16 @@ val sourcesJar by tasks.creating(Jar::class) {
     from(sourceSets.getByName("main").allSource)
 }
 
+githubRelease {
+    val jar: Jar by tasks
+
+    token(githubToken)
+    owner("tsarenkotxt")
+    body("Wow.\n something")
+    releaseAssets(jar.destinationDirectory.asFileTree)
+    apiEndpoint("https://api.github.com")
+}
+
 publishing {
     repositories {
         maven {
@@ -90,7 +103,7 @@ publishing {
             url = uri("https://maven.pkg.github.com/tsarenkotxt/spring-boot-github-actions-demo")
             credentials {
                 username = "tsarenkotxt"
-                password = System.getenv("GITHUB_TOKEN")
+                password = githubToken
             }
         }
     }
@@ -101,7 +114,7 @@ publishing {
                 groupId = "demo"
                 //artifactId = "spring-boot-kotlin-awesome-lib"
                 artifactId = "demo"
-                version = "0.0.5"
+                version = "0.0.6"
 
                 from(components["java"])
                 artifact(dokkaJar)
