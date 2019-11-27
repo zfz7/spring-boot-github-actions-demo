@@ -26,7 +26,7 @@ jobs:
         run: ./gradlew clean build -x test
 
       - name: Run tests
-          run: ./gradlew test
+        run: ./gradlew test
 
       - name: Generate test report with JaCoCo
         run: ./gradlew jacocoTestReport
