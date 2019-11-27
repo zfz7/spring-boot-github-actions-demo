@@ -21,7 +21,7 @@ plugins {
 }
 
 group = "spring-boot-kotlin-awesome-lib"
-version = "0.0.7"
+version = "0.0.8"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
@@ -93,7 +93,6 @@ githubRelease {
     val jar: Jar by tasks
 
     token(githubToken)
-    owner("tsarenkotxt")
     body("Wow.\n something")
     releaseAssets(jar.destinationDirectory.asFileTree)
     apiEndpoint("https://api.github.com")
@@ -117,7 +116,7 @@ publishing {
                 groupId = "demo"
                 //artifactId = "spring-boot-kotlin-awesome-lib"
                 artifactId = "demo"
-                version = "0.0.7"
+                version = "0.0.8"
 
                 from(components["java"])
                 artifact(dokkaJar)
