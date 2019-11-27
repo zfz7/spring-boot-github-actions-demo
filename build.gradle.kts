@@ -20,7 +20,7 @@ plugins {
 }
 
 group = "spring-boot-kotlin-awesome-lib"
-version = "0.0.3"
+version = "0.0.4"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
@@ -90,7 +90,7 @@ publishing {
             url = uri("https://maven.pkg.github.com/tsarenkotxt/spring-boot-github-actions-demo")
             credentials {
                 username = "tsarenkotxt"
-                password = System.getenv("GITHUB_PUBLISH_TOKEN")
+                password = System.getenv("GITHUB_TOKEN")
             }
         }
     }
@@ -101,7 +101,7 @@ publishing {
                 groupId = "demo"
                 //artifactId = "spring-boot-kotlin-awesome-lib"
                 artifactId = "demo"
-                version = "0.0.3"
+                version = "0.0.4"
 
                 from(components["java"])
                 artifact(dokkaJar)
