@@ -21,7 +21,7 @@ plugins {
 }
 
 group = "spring-boot-kotlin-awesome-lib"
-version = "0.0.6"
+version = "0.0.7"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
@@ -55,6 +55,9 @@ tasks.getByName<Jar>("jar") {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
 }
 
 tasks.withType<JacocoReport> {
@@ -114,7 +117,7 @@ publishing {
                 groupId = "demo"
                 //artifactId = "spring-boot-kotlin-awesome-lib"
                 artifactId = "demo"
-                version = "0.0.6"
+                version = "0.0.7"
 
                 from(components["java"])
                 artifact(dokkaJar)

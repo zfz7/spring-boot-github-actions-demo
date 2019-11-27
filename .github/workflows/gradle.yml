@@ -23,8 +23,21 @@ jobs:
           java-version: 1.8
 
       - name: Build with Gradle
-        run: ./gradlew clean build jacocoTestReport sonarqube
+        run: ./gradlew clean build -x test
 
-      - name: Publish with Gradle
+      - name: Run tests
+          run: ./gradlew test
+
+      - name: Generate test report with JaCoCo
+        run: ./gradlew jacocoTestReport
+
+      - name: Analyzing with SonarQube
+        run: ./gradlew sonarqube
+
+      - name: Release to GitHub
+        if: github.event_name == 'push'
+        run: ./gradlew githubRelease
+
+      - name: Publish to GitHub Packages
         if: github.event_name == 'push'
         run: ./gradlew publish
