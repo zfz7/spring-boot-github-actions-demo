@@ -1,1 +1,1 @@
-rootProject.name = "com.github.tsarenkotxt"
+rootProject.name = "spring-boot-kotlin-awesome-lib"
