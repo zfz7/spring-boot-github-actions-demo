@@ -20,7 +20,7 @@ plugins {
 }
 
 group = "spring-boot-kotlin-awesome-lib"
-version = "0.0.4"
+version = "0.0.5"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
@@ -101,7 +101,7 @@ publishing {
                 groupId = "demo"
                 //artifactId = "spring-boot-kotlin-awesome-lib"
                 artifactId = "demo"
-                version = "0.0.4"
+                version = "0.0.5"
 
                 from(components["java"])
                 artifact(dokkaJar)
