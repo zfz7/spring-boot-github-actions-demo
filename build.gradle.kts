@@ -41,13 +41,13 @@ tasks.withType<KotlinCompile> {
     }
 }
 
-//tasks.getByName<BootJar>("bootJar") {
-//    enabled = false
-//}
-//
-//tasks.getByName<Jar>("jar") {
-//    enabled = true
-//}
+tasks.getByName<BootJar>("bootJar") {
+    enabled = false
+}
+
+tasks.getByName<Jar>("jar") {
+    enabled = true
+}
 
 tasks.withType<Test> {
     useJUnitPlatform()
