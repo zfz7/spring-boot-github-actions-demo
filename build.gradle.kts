@@ -7,10 +7,6 @@ plugins {
     id("org.springframework.boot") version "2.2.1.RELEASE"
     id("io.spring.dependency-management") version "1.0.8.RELEASE"
 
-    id("org.sonarqube") version "2.7.1"
-    id("org.jetbrains.dokka") version "0.9.17"
-    id("com.github.breadmoirai.github-release") version "2.2.9"
-
     kotlin("jvm") version "1.3.50"
     kotlin("plugin.spring") version "1.3.50"
 
@@ -45,13 +41,13 @@ tasks.withType<KotlinCompile> {
     }
 }
 
-tasks.getByName<BootJar>("bootJar") {
-    enabled = false
-}
-
-tasks.getByName<Jar>("jar") {
-    enabled = true
-}
+//tasks.getByName<BootJar>("bootJar") {
+//    enabled = false
+//}
+//
+//tasks.getByName<Jar>("jar") {
+//    enabled = true
+//}
 
 tasks.withType<Test> {
     useJUnitPlatform()
@@ -60,22 +56,4 @@ tasks.withType<Test> {
     }
 }
 
-tasks.withType<JacocoReport> {
-    reports {
-        xml.isEnabled = true
-    }
-}
 
-tasks {
-    dokka {
-        outputFormat = "html"
-        outputDirectory = "$buildDir/javadoc"
-        moduleName = rootProject.name
-    }
-}
-
-//ssadf
-/*signing {
-    useGpgCmd()
-    sign(publishing.publications["mavenJava"])
-}*/
